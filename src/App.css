@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 360px;
+}
+
+.selection-box {
+  background: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.section-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 16px;
+}
+
+.divider {
+  height: 1px;
+  background-color: #EAEAEA;
+  margin: 16px 0;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+}
+
+.option {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #666666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #F5F5F5;
+  text-align: center;
+  line-height: 1.4;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.option:hover {
+  background-color: #EAEAEA;
+}
+
+.option.active {
+  color: #EF3700;
+  background-color: #FFF0ED;
+  border-color: #EF3700;
+}
+
+.right-panel {
+  flex: 1;
+  min-width: 300px;
+  max-width: 963px;
+  background-color: #FFFFFF;
+  border: 1px solid #EAEAEA;
+  border-radius: 8px;
+  padding: 20px;
+  height: 609px; /* 569px + 2 * 20px padding */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container {
+  width: auto;
+  height: 569px;
+  position: relative;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  aspect-ratio: 963/569;
+}
+
+.image-container > * {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* 媒体查询 - 平板 */
+@media (max-width: 1024px) {
+  .content {
+    gap: 30px;
+  }
+
+  .left-panel {
+    max-width: 320px;
+  }
+
+  .right-panel {
+    height: auto;
+    padding: 16px;
+  }
+
+  .image-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .image-container::before {
+    content: "";
+    display: block;
+    padding-top: 59.086%; /* 569/963 = 0.59086 */
+  }
+
+  .image-container > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+  .app {
+    padding: 16px;
+  }
+
+  .content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .left-panel {
+    max-width: 100%;
+  }
+
+  .selection-box {
+    padding: 16px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .options-container,
+  .color-grid {
+    gap: 8px;
+  }
+
+  .option {
+    font-size: 13px;
+    padding: 8px;
+    min-height: 36px;
+  }
+
+  .right-panel {
+    padding: 12px;
+  }
+}
+
+/* 超小屏幕优化 */
+@media (max-width: 480px) {
+  .app {
+    padding: 12px;
+  }
+
+  .content {
+    gap: 16px;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
