@@ -1,0 +1,170 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base styles for root elements */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Portrait mode styles */
+@media screen and (orientation: portrait) {
+  html,
+  body,
+  #root,
+  .app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  /* Hide all app content except mask */
+  .app > *:not(.orientation-mask) {
+    display: none !important;
+  }
+}
+
+/* Orientation mask styles */
+.orientation-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Rotate icon styles */
+.orientation-mask .rotate-icon {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 24px;
+  color: #ffffff;
+  animation: rotate-icon 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+  transform-origin: center center;
+  transform-box: fill-box;
+}
+
+/* Phone frame animation */
+.orientation-mask .phone-frame {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Rotate circle animation */
+.orientation-mask .rotate-circle {
+  opacity: 0.6;
+  transform-origin: 32px 32px;
+  animation: rotate-circle 3s linear infinite;
+}
+
+/* Arrow head animation */
+.orientation-mask .arrow-head {
+  opacity: 0.9;
+  animation: arrow-fade 3s linear infinite;
+}
+
+/* Phone screen subtle glow */
+.orientation-mask .phone-screen {
+  opacity: 0.7;
+}
+
+.orientation-mask p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0 20px;
+  max-width: none;
+  opacity: 0.9;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* Animations */
+@keyframes glow {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes rotate-circle {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.6;
+  }
+}
+
+@keyframes arrow-fade {
+  0%, 100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes rotate-icon {
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: rotate(-90deg);
+    opacity: 1;
+  }
+  50% {
+    transform: rotate(-90deg);
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(0deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(0deg);
+    opacity: 0.8;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: env(safe-area-inset-top)) {
+  .orientation-mask {
+    padding-top: max(20px, env(safe-area-inset-top));
+    padding-right: max(20px, env(safe-area-inset-right));
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    padding-left: max(20px, env(safe-area-inset-left));
+  }
+} 

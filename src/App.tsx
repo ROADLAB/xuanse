@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import ColorPreview from './components/ColorPreview';
+import MobileView from './components/MobileView';
+import OrientationMask from './components/OrientationMask';
+import './styles/orientation.css';
 
 interface Product {
   id: number;
@@ -21,13 +24,13 @@ function App() {
       id: 1, 
       name: '平板台面', 
       isActive: true,
-      availableColors: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      availableColors: [1, 2, 3, 4, 5, 7, 8, 9]
     },
     { 
       id: 2, 
       name: '单边凹槽阻水台面', 
       isActive: false,
-      availableColors: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      availableColors: [1, 2, 3, 4, 5, 7, 8]
     },
     { 
       id: 3, 
@@ -39,7 +42,7 @@ function App() {
       id: 4, 
       name: '碟型沥水槽台面', 
       isActive: false,
-      availableColors: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      availableColors: [1, 2, 3, 4, 5, 7, 8, 9]
     },
   ]);
 
@@ -55,41 +58,62 @@ function App() {
     { id: 9, name: '冬日暖意黄', isActive: false },
   ]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPortrait, setIsPortrait] = useState(false);
+
+  useEffect(() => {
+    // 检测设备方向
+    const checkOrientation = () => {
+      const isPortraitMode = window.matchMedia("(orientation: portrait)").matches;
+      setIsPortrait(isPortraitMode);
+    };
+
+    // 检测是否为移动设备
+    const checkMobile = () => {
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isSmallScreen = window.innerWidth <= 1024;
+      setIsMobile(isMobileDevice || isSmallScreen);
+    };
+
+    // 初始检查
+    checkMobile();
+    checkOrientation();
+
+    // 添加事件监听
+    const orientationMediaQuery = window.matchMedia("(orientation: portrait)");
+    orientationMediaQuery.addListener(checkOrientation);
+    window.addEventListener('resize', checkMobile);
+
+    // 清理监听器
+    return () => {
+      orientationMediaQuery.removeListener(checkOrientation);
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
   // 获取当前选中的产品
   const getActiveProduct = () => {
-    return products.find(product => product.isActive) || products[0];
+    return products.find(p => p.isActive) || products[0];
   };
 
   // 获取当前选中的颜色
   const getActiveColor = () => {
-    return colors.find(color => color.isActive) || colors[0];
-  };
-
-  // 获取当前产品可用的颜色
-  const getAvailableColors = () => {
-    const activeProduct = getActiveProduct();
-    return colors.map(color => ({
-      ...color,
-      isDisabled: !activeProduct.availableColors.includes(color.id)
-    }));
+    return colors.find(c => c.isActive) || colors[0];
   };
 
   const handleProductClick = (id: number) => {
-    // 更新选中的产品
     setProducts(products.map(product => ({
       ...product,
       isActive: product.id === id
     })));
 
-    // 无论当前选择的是什么颜色，都切换到亚马逊蓝（ID为1）
     setColors(colors.map(color => ({
       ...color,
-      isActive: color.id === 1  // 亚马逊蓝的ID为1
+      isActive: color.id === 1
     })));
   };
 
   const handleColorClick = (id: number) => {
-    // 只有当颜色可用时才允许选择
     const activeProduct = getActiveProduct();
     if (activeProduct.availableColors.includes(id)) {
       setColors(colors.map(color => ({
@@ -99,8 +123,25 @@ function App() {
     }
   };
 
+  if (isMobile) {
+    return (
+      <div className="app">
+        {isPortrait && <OrientationMask />}
+        <MobileView
+          products={products}
+          colors={colors}
+          onProductClick={handleProductClick}
+          onColorClick={handleColorClick}
+          activeProduct={getActiveProduct()}
+          activeColor={getActiveColor()}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
+      {isPortrait && <OrientationMask />}
       <div className="content">
         <div className="left-panel">
           <div className="selection-box">
@@ -123,10 +164,11 @@ function App() {
             <h2 className="section-title">颜色选择</h2>
             <div className="divider" />
             <div className="color-grid">
-              {getAvailableColors().map(color => (
+              {colors.filter(color => getActiveProduct().availableColors.includes(color.id))
+                .map(color => (
                 <div
                   key={color.id}
-                  className={`option ${color.isActive ? 'active' : ''} ${color.isDisabled ? 'disabled' : ''}`}
+                    className={`option ${color.isActive ? 'active' : ''}`}
                   onClick={() => handleColorClick(color.id)}
                 >
                   {color.name}
