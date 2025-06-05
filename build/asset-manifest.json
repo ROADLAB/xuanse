@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/xuanse/static/css/main.daa2a48e.css",
+    "main.js": "/xuanse/static/js/main.510aa999.js",
+    "static/js/453.ad6eb26e.chunk.js": "/xuanse/static/js/453.ad6eb26e.chunk.js",
+    "index.html": "/xuanse/index.html",
+    "main.daa2a48e.css.map": "/xuanse/static/css/main.daa2a48e.css.map",
+    "main.510aa999.js.map": "/xuanse/static/js/main.510aa999.js.map",
+    "453.ad6eb26e.chunk.js.map": "/xuanse/static/js/453.ad6eb26e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.daa2a48e.css",
+    "static/js/main.510aa999.js"
+  ]
+}
