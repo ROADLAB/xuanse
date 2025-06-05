@@ -13,12 +13,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFFFFF;
 }
 
 .app {
@@ -28,19 +22,16 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #FFFFFF;
-  padding: 0;
+  padding: 20px;
 }
 
 .content {
   display: flex;
   gap: 40px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  transform-origin: center center;
-  padding: 20px;
+  align-items: flex-start;
 }
 
 .left-panel {
@@ -118,7 +109,7 @@ body {
 .right-panel {
   flex: 1;
   min-width: 300px;
-  max-width: 100%;
+  max-width: 1420px;
   background-color: #FFFFFF;
   border: 1px solid #EAEAEA;
   border-radius: 8px;
@@ -126,142 +117,69 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 16/9;
+  height: 800px;
 }
 
 .image-container {
-  width: 100%;
-  height: 100%;
   position: relative;
   overflow: hidden;
   background-color: #FFFFFF;
   border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1158/520;
 }
 
 .image-container > * {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
-/* 4K 屏幕 (2160p) */
-@media screen and (min-width: 3840px), 
-       screen and (min-resolution: 192dpi) and (min-width: 1920px) {
-  .app {
-    transform: scale(2);
-  }
-  
-  .content {
-    max-width: 1800px;
-  }
-
-  .image-container {
-    transform: scale(1);
-  }
-}
-
-/* 2K 屏幕 (1440p) */
-@media screen and (min-width: 2560px) and (max-width: 3839px),
-       screen and (min-resolution: 144dpi) and (max-width: 3839px) {
-  .app {
-    transform: scale(1.5);
-  }
-  
-  .content {
-    max-width: 1600px;
-  }
-
-  .image-container {
-    transform: scale(1);
-  }
-}
-
-/* 1K/FHD 屏幕 (1080p) */
-@media screen and (min-width: 1920px) and (max-width: 2559px) {
-  .app {
-    transform: scale(1);
-  }
-  
-  .content {
-    max-width: 1400px;
-  }
-}
-
-/* 标准桌面屏幕 */
-@media screen and (min-width: 1025px) and (max-width: 1919px) {
-  .app {
-    transform: scale(1);
-  }
-  
-  .content {
-    max-width: 1200px;
-  }
-}
-
-/* 平板和小屏幕笔记本 */
+/* 媒体查询 - 平板 */
 @media (max-width: 1024px) {
   .app {
-    transform: none;
     padding: 16px;
-    min-height: auto;
+    min-height: 100vh;
   }
 
   .content {
-    gap: 20px;
-    max-width: 100%;
+    gap: 24px;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .left-panel {
+    max-width: 280px;
+  }
+
+  .right-panel {
+    padding: 12px;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .option {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+/* 手机端样式 */
+@media (max-width: 768px) {
+  .app {
+    padding: 12px;
+    height: auto;
+  }
+
+  .content {
     flex-direction: column;
-    align-items: center;
-    transform: none;
-    padding: 10px;
+    gap: 16px;
   }
 
   .left-panel {
     max-width: 100%;
-    width: 100%;
-  }
-
-  .right-panel {
-    aspect-ratio: 16/9;
-    width: 100%;
-    padding: 10px;
-  }
-
-  .image-container {
-    width: 100%;
-    height: 100%;
-    max-height: none;
-  }
-
-  .image-container > * {
-    width: 100%;
-    height: 100%;
-  }
-
-  .color-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  .option {
-    padding: 8px;
-    min-height: 36px;
-    font-size: 14px;
-  }
-}
-
-/* 平板竖屏和大屏手机 */
-@media (max-width: 768px) {
-  .app {
-    transform: none;
-    padding: 12px;
-  }
-
-  .content {
     gap: 16px;
-    padding: 8px;
   }
 
   .selection-box {
@@ -269,7 +187,7 @@ body {
   }
 
   .section-title {
-    font-size: 15px;
+    font-size: 14px;
     margin-bottom: 12px;
   }
 
@@ -285,20 +203,26 @@ body {
   }
 
   .right-panel {
-    padding: 8px;
+    padding: 12px;
+    min-height: 300px;
+    height: auto;
+  }
+
+  .image-container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1158/520;
   }
 }
 
-/* 手机屏幕 */
+/* 超小屏幕优化 */
 @media (max-width: 480px) {
   .app {
-    transform: none;
     padding: 8px;
   }
 
   .content {
     gap: 12px;
-    padding: 4px;
   }
 
   .selection-box {
@@ -307,6 +231,7 @@ body {
 
   .color-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
   .option {
@@ -316,94 +241,88 @@ body {
   }
 
   .right-panel {
-    padding: 6px;
-  }
-
-  .section-title {
-    font-size: 14px;
-    margin-bottom: 10px;
+    padding: 8px;
+    min-height: 240px;
   }
 }
 
-/* 确保在超小屏幕上也能完整显示 */
-@media (max-width: 360px) {
-  .app {
-    transform: none;
-    padding: 6px;
-  }
-  
-  .selection-box {
-    padding: 10px;
-  }
-
-  .option {
-    font-size: 11px;
-    padding: 5px;
-    min-height: 30px;
-  }
-}
-
-/* 2K 屏幕 (2560 x 1440) */
-@media screen and (min-width: 2000px) {
-  body {
-    min-height: 100vh;
-    overflow: auto;
-  }
-
-  .app {
-    min-height: 100vh;
-    padding: 40px;
-    overflow: visible;
-  }
-
+/* 横屏模式优化 */
+@media (max-width: 768px) and (orientation: landscape) {
   .content {
-    max-width: 1600px;
-    transform: scale(1.5);
-    transform-origin: center center;
-    padding: 0;
-    margin: 100px auto;
-    min-height: calc(100vh - 200px);
+    flex-direction: row;
+    gap: 16px;
   }
 
   .left-panel {
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+    max-width: 280px;
   }
 
   .right-panel {
     flex: 1;
+    min-height: 400px;
   }
 }
 
-/* 4K 屏幕 (3840 x 2160) */
-@media screen and (min-width: 3000px) {
+/* 高分辨率屏幕优化 (2K及以上) */
+@media screen and (min-width: 2048px) {
   .content {
-    max-width: 1800px;
-    transform: scale(2);
-    margin: 200px auto;
-  }
-}
-
-/* 确保图片容器在高分辨率下保持正确比例 */
-@media screen and (min-width: 2000px) {
-  .right-panel {
-    transform-origin: center center;
-  }
-
-  .image-container > * {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    max-width: 2000px;
   }
 
   .left-panel {
-    flex-shrink: 0;
+    max-width: 420px;
+  }
+
+  .right-panel {
+    max-width: none;
+    flex: 1;
+    height: 800px;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-title {
+    font-size: 18px;
+  }
+
+  .option {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 48px;
   }
 }
 
-@media screen and (min-width: 3000px) {
-  .app {
-    min-height: 200vh; /* 为4K下放大后的内容提供足够空间 */
+/* 4K屏幕优化 */
+@media screen and (min-width: 3840px) {
+  .content {
+    max-width: 3000px;
+  }
+
+  .left-panel {
+    max-width: 560px;
+  }
+
+  .right-panel {
+    max-width: none;
+    flex: 1;
+    height: 1000px;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .option {
+    font-size: 20px;
+    padding: 16px;
+    min-height: 60px;
   }
 }

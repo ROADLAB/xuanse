@@ -1,0 +1,91 @@
+.preview-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #FFFFFF;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.preview-container.loading {
+  position: relative;
+}
+
+.preview-container.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFF0F0;
+}
+
+.error-message {
+  color: #EF3700;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #666666;
+  font-size: 14px;
+}
+
+.preview-container.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #f8f8f8 50%,
+    #f0f0f0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 微信端适配 */
+@supports (-webkit-overflow-scrolling: touch) {
+  .preview-container {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+/* 适配不同屏幕尺寸 */
+@media screen and (max-width: 400px) {
+  .preview-container {
+    border-radius: 2px;
+  }
+} 
