@@ -18,12 +18,12 @@ const ColorPreview: React.FC<ColorPreviewProps> = ({ colorName, productName }) =
       const imageName = `${productName}-${colorName}.jpg`;
       // 移除空格
       const normalizedName = imageName.replace(/\s+/g, '');
-      // 使用 process.env.PUBLIC_URL
-      return `${process.env.PUBLIC_URL}/images/${normalizedName}`;
+      // 使用相对路径
+      return `/images/${normalizedName}`;
     } catch (error) {
       console.error(`无法加载图片: ${productName}-${colorName}.jpg`, error);
       // 如果加载失败，返回默认图片
-      return `${process.env.PUBLIC_URL}/images/平板台面-亚马逊蓝.jpg`;
+      return `/images/平板台面-亚马逊蓝.jpg`;
     }
   };
 

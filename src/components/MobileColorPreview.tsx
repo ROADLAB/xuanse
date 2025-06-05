@@ -16,7 +16,8 @@ const MobileColorPreview: React.FC<MobileColorPreviewProps> = ({ colorName, prod
     setError('');
     
     const imageName = `${productName}-${colorName}.jpg`;
-    const imagePath = `${process.env.PUBLIC_URL}/images/${imageName}`;
+    const normalizedName = imageName.replace(/\s+/g, '');
+    const imagePath = `/images/${normalizedName}`;
     
     const img = new Image();
     img.src = imagePath;
@@ -29,7 +30,7 @@ const MobileColorPreview: React.FC<MobileColorPreviewProps> = ({ colorName, prod
     img.onerror = () => {
       console.error(`图片加载失败: ${imagePath}`);
       setError('图片加载失败，请稍后重试');
-      const defaultImage = `${process.env.PUBLIC_URL}/images/平板台面-亚马逊蓝.jpg`;
+      const defaultImage = `/images/平板台面-亚马逊蓝.jpg`;
       setImageSrc(defaultImage);
       setIsLoading(false);
     };

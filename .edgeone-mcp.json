@@ -1,0 +1,29 @@
+{
+  "name": "xuanse",
+  "type": "static",
+  "build": {
+    "command": "npm run build",
+    "output": "build"
+  },
+  "routes": [
+    {
+      "src": "/images/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    }
+  ]
+} 
